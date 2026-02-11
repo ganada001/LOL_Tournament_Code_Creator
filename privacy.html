@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보 처리방침 - LOL Tournament Code Creator</title>
+    <style>
+        :root {
+            --primary-color: #00b0ff;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --muted-text: #888;
+            --border-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        p,
+        li {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .btn-back:hover {
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 176, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>개인정보 처리방침 (Privacy Policy)</h1>
+    </header>
+
+    <div class="container">
+        <section>
+            <p><strong>LOL Tournament Code Creator</strong>("본 도구")는 사용자의 개인정보 및 Riot Games의 보안 정책을 최우선으로 생각합니다.</p>
+        </section>
+
+        <section>
+            <h2>1. 수집하는 개인정보 항목</h2>
+            <p>본 도구는 사용자의 API Key를 포함한 어떠한 개인 데이터도 수집, 요구 또는 로컬에 저장하지 않습니다.</p>
+            <div class="highlight-box">
+                <p><strong>보안 아키텍처</strong>: 모든 Riot API 요청은 개발자의 보안 백엔드(Google Apps Script)를 통해 처리되며, 사용자에게 API 키를 묻지
+                    않습니다. 사용자의 데이터는 서버측에 일절 보관되지 않으며 실시간 요청 처리 후 즉시 소멸됩니다.</p>
+            </div>
+            <ul>
+                <li><strong>Discord Webhook URL</strong>: 사용자가 설정한 디스코드 웹훅 주소는 로컬에 저장되며, 알림 전송 목적으로만 사용됩니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. 개인정보의 이용 목적</h2>
+            <p>수집된 정보는 오직 다음의 목적으로만 사용됩니다.</p>
+            <ul>
+                <li>보안 백엔드를 통한 Riot API 토너먼트 코드 생성</li>
+                <li>디스코드 채널로의 경기 정보 알림 전송</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. 데이터 보안</h2>
+            <p>본 도구는 오픈 소스 소프트웨어이며, 모든 데이터 처리는 사용자의 로컬 컴퓨터에서 이루어집니다. API 키는 서버 측에서만 관리되며, 사용자에게 노출되지 않습니다.</p>
+        </section>
+
+        <section>
+            <h2>4. 제3자 제공</h2>
+            <p>본 도구는 수집된 정보를 제3자에게 판매하거나 공유하지 않습니다. Riot Games API 호출 시 Riot Games의 정책에 따라 데이터가 처리될 수 있습니다.</p>
+        </section>
+
+        <section>
+            <h2>5. 문의처</h2>
+            <p>본 정책에 대한 문의사항은 본 GitHub 저장소의 Issue를 통해 남겨주시기 바랍니다.</p>
+        </section>
+
+        <a href="./index.html" class="btn-back">← 메인 페이지로 돌아가기</a>
+    </div>
+
+    <footer>
+        <p>최종 수정일: 2026년 2월 11일</p>
+        <p>© 2026 LOL Tournament Code Creator. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
