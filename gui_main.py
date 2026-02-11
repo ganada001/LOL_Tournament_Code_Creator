@@ -6,6 +6,17 @@ import json
 from api_client import RiotTournamentClient
 from discord_helper import send_discord_webhook
 import config_manager
+import sys
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 # --- Configuration Constants ---
 ctk.set_appearance_mode("Dark")
@@ -32,16 +43,17 @@ def load_presets_file():
             print(f"Error loading presets: {e}")
             return []
             
-    # 2. Fallback to example file if exists
-    if os.path.exists("presets.json.example"):
+    # 2. Fallback to bundled example file if exists
+    example_path = resource_path("presets.json.example")
+    if os.path.exists(example_path):
         try:
-            with open("presets.json.example", "r", encoding="utf-8") as f:
+            with open(example_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             # Auto-create presets.json from example for convenience
             save_presets_file(data)
             return data
-        except:
-            pass
+        except Exception as e:
+            print(f"Error loading bundled example: {e}")
             
     return []
 
