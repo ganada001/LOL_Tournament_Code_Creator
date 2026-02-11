@@ -2,8 +2,20 @@ import json
 import os
 from dotenv import load_dotenv
 
-CONFIG_FILE = "config.json"
-ENV_FILE = ".env"
+def get_app_data_dir():
+    """Get or create the storage directory in AppData."""
+    app_data = os.environ.get('APPDATA')
+    if not app_data:
+        # Fallback for non-windows or weird env
+        app_data = os.path.expanduser("~")
+    
+    path = os.path.join(app_data, "LOL_Tournament_Code_Creator")
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+CONFIG_FILE = os.path.join(get_app_data_dir(), "config.json")
+ENV_FILE = os.path.join(get_app_data_dir(), ".env")
 
 DEFAULT_CONFIG = {
     "provider_id": None,

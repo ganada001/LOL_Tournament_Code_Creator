@@ -31,7 +31,7 @@ BUTTON_HEIGHT_LG = 50
 BUTTON_HEIGHT_STD = 40
 INPUT_HEIGHT = 35
 
-PRESETS_FILE = "presets.json"
+PRESETS_FILE = os.path.join(config_manager.get_app_data_dir(), "presets.json")
 
 def load_presets_file():
     # 1. Try loading actual presets
