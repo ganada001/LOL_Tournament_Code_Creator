@@ -140,6 +140,41 @@
         li {
             margin-bottom: 0.5rem;
         }
+
+        /* Enhanced Styling */
+        .feature-box {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-3px);
+            border-color: #444;
+        }
+
+        .highlight-title {
+            color: #ff9100;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        details {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        summary:hover {
+            color: #00b0ff;
+        }
     </style>
 </head>
 
@@ -246,6 +281,50 @@
                 <li><strong>데이터 유지</strong>: 한 번 발급받은 ID는 프로그램 내부에 안전하게 저장되어 재실행 시에도 유지됩니다.</li>
                 <li><strong>주의사항</strong>: Stub 모드에서 발급받은 ID는 라이브 모드에서 호환되지 않으므로, 모드 변경 시 ID를 새로 생성해야 합니다.</li>
             </ul>
+        </div>
+
+        <h2>⭐ Riot 심사관을 위한 퀵 가이드 (Reviewer's Quick Start)</h2>
+        <div class="feature-box" style="border-left: 5px solid #ff9100;">
+            <p>심사 시 빠른 테스트를 위해 다음 순서를 권장합니다.</p>
+            <ol>
+                <li>프로그램 실행 후 하단의 <strong>[설정]</strong> 버튼을 클릭합니다.</li>
+                <li><strong>Stub API 사용</strong>이 활성화되어 있는지 확인합니다 (기본값: On).</li>
+                <li><strong>Provider 새로 생성</strong> 버튼을 눌러 테스트용 ID를 발급받습니다.</li>
+                <li>메인 화면으로 돌아와 생성된 <strong>프리셋 버튼</strong>을 클릭하여 실제 토너먼트 코드가 생성되는지 확인합니다.</li>
+            </ol>
+            <p><small>* Stub 모드이므로 실제 게임 클라이언트에 입력 시 '유효하지 않은 코드'로 뜰 수 있으나, API 응답 자체는 라이엇 규격을 100% 준수합니다.</small></p>
+        </div>
+
+        <h2>🛡️ 보안 및 시스템 아키텍처 (Security & Architecture)</h2>
+        <div class="feature-box">
+            <p>본 프로그램은 라이엇 게임즈의 보안 가이드를 최우선으로 준수하도록 설계되었습니다.</p>
+            <ul>
+                <li><strong>API Key 미노출</strong>: 클라이언트 코드나 로컬 설정 파일에 Production API Key를 절대 저장하지 않습니다.</li>
+                <li><strong>중계 서버(Proxy) 방식</strong>: 모든 요청은 <code>Google Apps Script</code> 백엔드를 거쳐 전달되며, API Key는 서버측
+                    환경 변수에서만 관리됩니다.</li>
+                <li><strong>데이터 비저장</strong>: 서버는 요청을 전달(Forwarding)할 뿐, 어떠한 유저 데이터나 대회 정보도 DB에 기록하지 않습니다.</li>
+            </ul>
+        </div>
+
+        <h2>❓ 자주 묻는 질문 (FAQ)</h2>
+        <div class="feature-box">
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 왜 직접 API 키를 넣지 않나요?
+                </summary>
+                <p style="padding-left: 20px;">보안 때문입니다. 사용자 기기에 API 키가 남을 경우 유출 위험이 크기 때문에, 안전한 백엔드를 통해서만 통신하도록 제작했습니다.
+                </p>
+            </details>
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 생성된 코드가 디스코드에 오지 않아요.
+                </summary>
+                <p style="padding-left: 20px;">[설정 - 프리셋 관리] 탭에서 유효한 <strong>Discord Webhook URL</strong>이 입력되어 있는지 확인해
+                    주세요.</p>
+            </details>
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 심사 승인 전에는 어떻게 테스트하나요?
+                </summary>
+                <p style="padding-left: 20px;">프로그램에 내장된 'Stub API' 모드를 사용하면 승인된 키가 없어도 모든 기능을 미리 체험해 볼 수 있습니다.</p>
+            </details>
         </div>
 
         <h2>📄 법적 고지 및 보안</h2>
