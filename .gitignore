@@ -1,0 +1,14 @@
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Config
+presets.json
+config.json
+
+# Debug
+debug_stub.py
