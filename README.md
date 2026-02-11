@@ -42,7 +42,7 @@ League of Legends Tournament Code Generator & Manager.
 
 ### 1. 프로그램 다운로드 (가장 권장)
 심사관 및 일반 사용자는 빌드된 실행 파일을 다운로드하여 별도의 설치 없이 바로 사용할 수 있습니다.
-*   **[최신 EXE 다운로드 (Releases)](https://github.com/ganada001/LOL_Tournament_Code_Creator/releases)**
+*   **[최신 EXE 다운로드 (Direct)](https://github.com/ganada001/LOL_Tournament_Code_Creator/raw/main/dist/LOL_Tournament_Code_Creator.exe)**
 *   다운로드 후 `LOL_Tournament_Code_Creator.exe`를 실행하세요.
 
 ### 2. 소스 코드에서 실행 (개발자용)
