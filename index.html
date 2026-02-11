@@ -197,6 +197,27 @@
             <li>메인 화면에서 대회 버튼을 누르면 코드가 생성되고 디스코드에 전송됩니다.</li>
         </ol>
 
+        <h2>⚙️ 환경 및 공급자 설정 (Environment & Provider)</h2>
+        <div class="feature-box">
+            <h3>1. Stub API vs Production API</h3>
+            <p>프로그램 상단의 <strong>Stub API 사용</strong> 스위치를 통해 실행 환경을 변경할 수 있습니다.</p>
+            <ul>
+                <li><strong>Stub API (테스트용)</strong>: 실제 게임 데이터에 영향을 주지 않고 토너먼트 코드 생성 로직을 테스트할 수 있는 라이엇 제공 테스트 환경입니다. 승인
+                    전 개발 단계에서 권장됩니다.</li>
+                <li><strong>Production API (라이브 서버)</strong>: 실제 리그 오브 레전드 라이브 서버에서 작동하는 코드를 생성합니다. 라이엇으로부터 Production
+                    Key 승인을 받은 후 사용 가능합니다.</li>
+            </ul>
+
+            <h3>2. 공급자 및 토너먼트 (Provider & Tournament)</h3>
+            <p>토너먼트 코드를 생성하기 위해서는 먼저 <strong>Provider ID</strong>가 필요합니다.</p>
+            <ul>
+                <li><strong>Provider ID</strong>: 대회를 주최하는 주체를 식별하는 ID입니다. 설정 탭에서 'Provider 새로 생성' 버튼을 클릭하여 발급받을 수 있습니다.
+                </li>
+                <li><strong>데이터 유지</strong>: 한 번 발급받은 ID는 프로그램 내부에 안전하게 저장되어 재실행 시에도 유지됩니다.</li>
+                <li><strong>주의사항</strong>: Stub 모드에서 발급받은 ID는 라이브 모드에서 호환되지 않으므로, 모드 변경 시 ID를 새로 생성해야 합니다.</li>
+            </ul>
+        </div>
+
         <h2>📄 법적 고지 및 보안</h2>
         <p>본 프로젝트는 Riot Games의 보안 정책을 준수합니다. 사용자의 개인정보나 API Key를 수집하지 않습니다.</p>
     </div>
