@@ -45,23 +45,29 @@ export function loadAndValidateSecrets() {
   }
 
   let callbackUrl;
+  const callbackUrlRequirement =
+    "RIOT_CALLBACK_URL must use http on port 80 or https on port 443 and end in /functions/v1/riot-callback.";
   try {
     callbackUrl = new URL(secrets.RIOT_CALLBACK_URL);
   } catch (_error) {
     return {
       ok: false,
-      error:
-        "RIOT_CALLBACK_URL must be an HTTPS URL ending in /functions/v1/riot-callback.",
+      error: callbackUrlRequirement,
     };
   }
+  const callbackProtocolOk =
+    callbackUrl.protocol === "http:" || callbackUrl.protocol === "https:";
+  const callbackPortOk = !callbackUrl.port ||
+    (callbackUrl.protocol === "http:" && callbackUrl.port === "80") ||
+    (callbackUrl.protocol === "https:" && callbackUrl.port === "443");
   if (
-    callbackUrl.protocol !== "https:" ||
+    !callbackProtocolOk ||
+    !callbackPortOk ||
     !callbackUrl.pathname.endsWith("/functions/v1/riot-callback")
   ) {
     return {
       ok: false,
-      error:
-        "RIOT_CALLBACK_URL must be an HTTPS URL ending in /functions/v1/riot-callback.",
+      error: callbackUrlRequirement,
     };
   }
 

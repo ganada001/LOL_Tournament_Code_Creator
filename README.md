@@ -20,6 +20,10 @@ send generated codes to configured Discord webhooks.
   token; the operator password is not stored.
 - Callback URL is not editable in the desktop app. Provider creation always uses
   the server-side `RIOT_CALLBACK_URL` secret.
+- Before live Tournament API use, verify that `RIOT_CALLBACK_URL` satisfies
+  Riot's callback domain, port, and certificate restrictions. If the default
+  Supabase HTTPS domain is not accepted by Riot callbacks, put a Riot-compatible
+  HTTP reverse proxy or approved-certificate domain in this secret.
 - Live Tournament API code creation requires `RIOT_CALLBACK_SECRET`. The backend
   signs Tournament Code metadata, and the callback endpoint verifies that
   signature before accepting callback events.

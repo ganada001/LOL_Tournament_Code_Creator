@@ -82,7 +82,12 @@ npm run secrets:set
 npm run secrets:list
 ```
 
-`RIOT_CALLBACK_URL` must point to the deployed `riot-callback` Edge Function.
+`RIOT_CALLBACK_URL` must point to a deployed URL that forwards to the
+`riot-callback` Edge Function. For live Tournament API callbacks, verify the
+final URL against Riot's documented callback port, TLD, and certificate
+restrictions. If the default Supabase HTTPS domain is not accepted by Riot
+callbacks, configure a compatible HTTP reverse proxy or approved-certificate
+custom domain.
 `RIOT_CALLBACK_SECRET` signs Tournament Code metadata and lets the public
 callback endpoint reject forged callback payloads.
 `RIOT_TOURNAMENT_ROUTING` defaults to `americas`, which is the verified working

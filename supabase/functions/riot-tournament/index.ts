@@ -350,7 +350,11 @@ function decodeJwtPayload(token: string): Record<string, unknown> {
 function isValidCallbackUrl(callbackUrl: string) {
   try {
     const url = new URL(callbackUrl);
-    return url.protocol === "https:";
+    const protocolOk = url.protocol === "http:" || url.protocol === "https:";
+    const portOk = !url.port ||
+      (url.protocol === "http:" && url.port === "80") ||
+      (url.protocol === "https:" && url.port === "443");
+    return protocolOk && portOk;
   } catch (_error) {
     return false;
   }

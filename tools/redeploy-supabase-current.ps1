@@ -33,6 +33,66 @@ function New-CallbackSecret {
     }
 }
 
+function New-HmacSha256Hex {
+    param(
+        [string]$Secret,
+        [string]$Message
+    )
+
+    $keyBytes = [Text.Encoding]::UTF8.GetBytes($Secret)
+    $messageBytes = [Text.Encoding]::UTF8.GetBytes($Message)
+    $hmac = [Security.Cryptography.HMACSHA256]::new($keyBytes)
+    try {
+        $hash = $hmac.ComputeHash($messageBytes)
+        return -join ($hash | ForEach-Object { $_.ToString("x2") })
+    } finally {
+        $hmac.Dispose()
+    }
+}
+
+function Invoke-CallbackAcceptanceCheck {
+    param(
+        [string]$ProjectRef,
+        [string]$CallbackSecret
+    )
+
+    $version = 1
+    $issuedAt = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+    $nonce = [Guid]::NewGuid().ToString("N")
+    $signedText = "$version.$issuedAt.$nonce"
+    $signature = New-HmacSha256Hex -Secret $CallbackSecret -Message $signedText
+    $metadata = @{
+        v = $version
+        ts = $issuedAt
+        nonce = $nonce
+        sig = $signature
+        label = "pre-submit callback acceptance audit"
+    } | ConvertTo-Json -Compress
+    $payload = @{
+        startTime = $issuedAt
+        shortCode = "CALLBACK-AUDIT"
+        metaData = $metadata
+        gameId = 1234567890
+        gameName = "pre-submit-callback-audit"
+        gameType = "Practice"
+        gameMap = 11
+        gameMode = "CLASSIC"
+        region = "KR"
+    } | ConvertTo-Json -Depth 10 -Compress
+
+    $callbackUrl = "https://$ProjectRef.supabase.co/functions/v1/riot-callback"
+    $response = Invoke-WebRequest `
+        -UseBasicParsing `
+        -Method Post `
+        -Uri $callbackUrl `
+        -ContentType "application/json" `
+        -Body $payload
+    if ($response.StatusCode -ne 200) {
+        throw "Callback acceptance check failed with HTTP $($response.StatusCode)"
+    }
+    Write-Host "Valid callback acceptance returned HTTP 200." -ForegroundColor Green
+}
+
 function Invoke-CheckedCommand {
     param([string]$Label, [string[]]$Command)
 
@@ -116,6 +176,10 @@ try {
         "--project-ref",
         $ProjectRef
     )
+
+    Write-Host ""
+    Write-Host "== Verify signed Riot callback acceptance ==" -ForegroundColor Cyan
+    Invoke-CallbackAcceptanceCheck -ProjectRef $ProjectRef -CallbackSecret $callbackSecret
 
     Write-Host ""
     Write-Host "Supabase redeploy completed." -ForegroundColor Green

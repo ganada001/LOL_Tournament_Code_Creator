@@ -68,9 +68,11 @@ Check the following without posting the key in chat, screenshots, or docs:
   with `npm run riot-key:update` and create a new provider. Riot documents that
   tournament providers are strongly associated with API keys.
 - Keep Stub API enabled until the key/product access problem is resolved.
-- Separately verify that `RIOT_CALLBACK_URL` is the deployed HTTPS callback
-  function. Callback certificate/TLD restrictions can affect callback delivery,
-  but a provider-creation 403 should be investigated as key/product access
+- Separately verify that `RIOT_CALLBACK_URL` is a deployed callback URL that
+  satisfies Riot's callback port, TLD, and certificate restrictions. The
+  Supabase default HTTPS endpoint can be used for direct callback-shape tests,
+  but true Riot callback delivery must be verified with Riot's callback rules.
+  A provider-creation 403 should still be investigated as key/product access
   first.
 - Separately verify that `RIOT_CALLBACK_SECRET` is configured before switching
   from Stub API to live Tournament API code creation.
@@ -93,7 +95,7 @@ Check the following without posting the key in chat, screenshots, or docs:
 ## Deployed Backend
 
 - Supabase project URL: `https://ofogstpjheigpnsmnlxn.supabase.co`
-- Riot callback URL:
+- Current direct-test Riot callback URL:
   `https://ofogstpjheigpnsmnlxn.supabase.co/functions/v1/riot-callback`
 - Edge Functions:
   - `riot-tournament`

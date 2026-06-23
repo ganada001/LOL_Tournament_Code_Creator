@@ -60,7 +60,11 @@ Production review without expanding the product scope.
   only as a Supabase Edge Function secret. If the key is permanent, still verify
   that the product/key has Tournament API or Tournament Stub API access.
 - After Riot approval, replace the Supabase secret with the Production API key.
-- Set `RIOT_CALLBACK_URL` to the deployed Supabase callback function URL.
+- Set `RIOT_CALLBACK_URL` to a deployed callback URL that satisfies Riot's
+  callback port, TLD, and certificate restrictions. If the Supabase default
+  HTTPS certificate is not accepted by Riot callbacks, use a Riot-compatible
+  HTTP reverse proxy or approved-certificate custom domain that forwards to
+  `riot-callback`.
 - Set `RIOT_CALLBACK_SECRET` to a random 32+ character secret and rotate it
   after suspected exposure.
 - Set `ALLOWED_OPERATOR_EMAILS` to the exact Supabase Auth operator email list.
@@ -85,8 +89,8 @@ Production review without expanding the product scope.
   Portal product/key access to `tournament-stub-v5` or `tournament-v5`; if the
   key changed, update the secret and create a new provider.
 - Callback URL and metadata validation issues should be checked separately
-  through the deployed `riot-callback` endpoint and Riot's documented callback
-  domain/certificate restrictions.
+  through the deployed `riot-callback` endpoint, a valid signed metadata test,
+  and Riot's documented callback domain/certificate restrictions.
 
 ## Review Evidence
 

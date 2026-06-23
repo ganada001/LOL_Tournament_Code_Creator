@@ -74,8 +74,12 @@ Configure these values in Supabase, not in the desktop app:
 - `RIOT_API_KEY`: Riot API key. Use the temporary Development API key for
   private prototype validation before Riot approval, then replace this secret
   with the Production API key after approval.
-- `RIOT_CALLBACK_URL`: deployed callback function URL, for example
-  `https://<project-ref>.supabase.co/functions/v1/riot-callback`.
+- `RIOT_CALLBACK_URL`: deployed callback URL that Riot can POST to. Direct
+  Supabase testing can use
+  `https://<project-ref>.supabase.co/functions/v1/riot-callback`, but live Riot
+  callback delivery must satisfy Riot's documented port, TLD, and certificate
+  restrictions. Use a compatible HTTP reverse proxy or approved-certificate
+  domain if needed.
 - `RIOT_CALLBACK_SECRET`: random 32+ character secret used to sign Tournament
   Code metadata and validate Riot callbacks.
 - `ALLOWED_OPERATOR_EMAILS`: comma-separated trusted operator emails.
