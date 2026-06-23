@@ -284,12 +284,13 @@
 
     .screens {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 22px;
-      align-items: stretch;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+      align-items: start;
     }
 
     .screen {
+      min-width: 0;
       overflow: hidden;
       border: 1px solid rgba(208, 173, 75, 0.48);
       border-radius: 8px;
@@ -297,12 +298,23 @@
       box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
     }
 
+    .screen-link {
+      display: block;
+      background:
+        linear-gradient(180deg, rgba(2, 8, 18, 0.98), rgba(4, 12, 24, 0.98));
+      border-bottom: 1px solid rgba(208, 173, 75, 0.26);
+    }
+
+    .screen-link:hover {
+      text-decoration: none;
+    }
+
     .screen img {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
+      aspect-ratio: 5 / 6;
+      object-fit: contain;
       object-position: top center;
-      border-bottom: 1px solid rgba(208, 173, 75, 0.26);
+      padding: 12px;
     }
 
     .screen span {
@@ -364,7 +376,11 @@
       }
 
       .screens {
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+        grid-template-columns: 1fr;
+      }
+
+      .screen img {
+        aspect-ratio: 4 / 5;
       }
     }
 
@@ -477,27 +493,37 @@
       <div class="wrap">
         <div class="section-head">
           <h2>화면 구성</h2>
-          <p>대회 운영 중 빠르게 확인해야 하는 정보가 먼저 보이도록 메인 화면, 설정, 수동 생성, 프리셋 관리를 분리했습니다.</p>
+          <p>대회 운영 중 빠르게 확인해야 하는 정보가 먼저 보이도록 메인 화면, 설정, 수동 생성, 프리셋 관리를 분리했습니다. 각 화면 캡처를 누르면 원본 크기로 확인할 수 있습니다.</p>
         </div>
         <div class="screens" aria-label="프로그램 화면 예시">
           <figure class="screen">
-            <img src="./assets/screenshot_main.png" alt="메인 화면">
+            <a class="screen-link" href="./assets/screenshot_main.png" target="_blank" rel="noopener">
+              <img src="./assets/screenshot_main.png" alt="메인 화면">
+            </a>
             <span>메인 운영 화면</span>
           </figure>
           <figure class="screen">
-            <img src="./assets/screenshot_settings.png" alt="설정 화면">
+            <a class="screen-link" href="./assets/screenshot_settings.png" target="_blank" rel="noopener">
+              <img src="./assets/screenshot_settings.png" alt="설정 화면">
+            </a>
             <span>운영자 인증 및 공급자 관리</span>
           </figure>
           <figure class="screen">
-            <img src="./assets/screenshot_auth_required.png" alt="로그인 전 설정 화면">
+            <a class="screen-link" href="./assets/screenshot_auth_required.png" target="_blank" rel="noopener">
+              <img src="./assets/screenshot_auth_required.png" alt="로그인 전 설정 화면">
+            </a>
             <span>로그인 필요 상태</span>
           </figure>
           <figure class="screen">
-            <img src="./assets/screenshot_manual.png" alt="수동 생성 화면">
+            <a class="screen-link" href="./assets/screenshot_manual.png" target="_blank" rel="noopener">
+              <img src="./assets/screenshot_manual.png" alt="수동 생성 화면">
+            </a>
             <span>일회성 코드 수동 생성</span>
           </figure>
           <figure class="screen">
-            <img src="./assets/screenshot_presets.png" alt="프리셋 관리 화면">
+            <a class="screen-link" href="./assets/screenshot_presets.png" target="_blank" rel="noopener">
+              <img src="./assets/screenshot_presets.png" alt="프리셋 관리 화면">
+            </a>
             <span>대회 프리셋 관리</span>
           </figure>
         </div>
