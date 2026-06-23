@@ -258,30 +258,38 @@
 
     .screens {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      align-items: stretch;
     }
 
     .screen {
       overflow: hidden;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(208, 173, 75, 0.34);
       border-radius: 8px;
-      background: var(--panel);
+      background: linear-gradient(180deg, rgba(10, 24, 43, 0.92), rgba(7, 16, 30, 0.98));
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
     }
 
     .screen img {
       width: 100%;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
-      border-bottom: 1px solid var(--line);
+      object-position: top center;
+      border-bottom: 1px solid rgba(208, 173, 75, 0.26);
     }
 
     .screen span {
-      display: block;
-      min-height: 44px;
-      padding: 10px 12px;
-      color: var(--muted);
-      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      min-height: 50px;
+      padding: 12px 14px;
+      color: #dbeaff;
+      font-size: 0.96rem;
+      font-weight: 700;
+      line-height: 1.35;
+      word-break: keep-all;
+      overflow-wrap: normal;
     }
 
     code {
@@ -325,9 +333,12 @@
       }
 
       .grid,
-      .two-grid,
-      .screens {
+      .two-grid {
         grid-template-columns: 1fr;
+      }
+
+      .screens {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
       }
     }
   </style>
