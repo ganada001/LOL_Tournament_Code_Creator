@@ -1,354 +1,500 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOL Tournament Code Creator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOL Tournament Code Creator</title>
+  <meta name="description" content="League of Legends 커뮤니티 대회 운영자를 위한 Riot Tournament API 토너먼트 코드 발급 도구">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050914;
+      --band: #07111f;
+      --panel: #0a1424;
+      --panel-2: #101c2f;
+      --line: #263a56;
+      --line-gold: #a88935;
+      --gold: #d0ad4b;
+      --gold-soft: #f0d27a;
+      --cyan: #00d7ff;
+      --text: #f4f7fb;
+      --muted: #a7b6ca;
+      --quiet: #76879d;
+      --shadow: rgba(0, 0, 0, 0.36);
+    }
 
-        header {
-            background-color: #1e1e1e;
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 2px solid #333;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        h1 {
-            margin: 0;
-            color: #00b0ff;
-            margin-bottom: 0.5rem;
-        }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.65;
+    }
 
-        h2 {
-            border-bottom: 1px solid #333;
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-            color: #fff;
-        }
+    a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
 
-        h3 {
-            color: #00b0ff;
-            margin-top: 1.5rem;
-        }
+    a:hover {
+      text-decoration: underline;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            flex: 1;
-        }
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #00b0ff;
-            color: #121212;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-top: 1rem;
-            transition: background 0.3s;
-        }
+    .wrap {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
 
-        .btn:hover {
-            background-color: #0081cb;
-        }
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 76vh;
+      padding: 76px 0 68px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(208, 173, 75, 0.34);
+      background:
+        linear-gradient(90deg, rgba(5, 9, 20, 0.96) 0%, rgba(5, 9, 20, 0.86) 47%, rgba(5, 9, 20, 0.5) 100%),
+        url("./assets/screenshot_main.png") center right / cover no-repeat;
+    }
 
-        footer {
-            background-color: #1e1e1e;
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid #333;
-            margin-top: auto;
-        }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+      opacity: 0.7;
+    }
 
-        footer a {
-            color: #888;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 0.9rem;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
 
-        footer a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--gold-soft);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
 
-        .feature-box {
-            background: #1e1e1e;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-        }
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
 
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    h1 {
+      margin-bottom: 20px;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
 
-        .screenshot-item {
-            background: #252525;
-            padding: 0.5rem;
-            border-radius: 5px;
-            text-align: center;
-        }
+    h2 {
+      margin-bottom: 18px;
+      color: var(--gold-soft);
+      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
 
-        .screenshot-item img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #333;
-        }
+    h3 {
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 1.02rem;
+      letter-spacing: 0;
+    }
 
-        .screenshot-caption {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: #bbb;
-        }
+    p {
+      color: var(--muted);
+    }
 
-        code {
-            background: #333;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-family: monospace;
-        }
+    .lead {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: #d4deeb;
+      font-size: clamp(1.02rem, 1.8vw, 1.18rem);
+    }
 
-        pre {
-            background: #333;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
+    .badge-row,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        ul {
-            padding-left: 1.5rem;
-        }
+    .badge-row {
+      margin: 28px 0 30px;
+    }
 
-        li {
-            margin-bottom: 0.5rem;
-        }
+    .badge {
+      border: 1px solid rgba(208, 173, 75, 0.48);
+      border-radius: 6px;
+      padding: 7px 11px;
+      background: rgba(7, 17, 31, 0.78);
+      color: #e8d28f;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
 
-        /* Enhanced Styling */
-        .feature-box {
-            background: #1e1e1e;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            border: 1px solid #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s;
-        }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border: 1px solid var(--line-gold);
+      border-radius: 6px;
+      padding: 9px 15px;
+      background: rgba(208, 173, 75, 0.92);
+      color: #07111f;
+      font-weight: 900;
+      box-shadow: 0 10px 26px var(--shadow);
+    }
 
-        .feature-box:hover {
-            transform: translateY(-3px);
-            border-color: #444;
-        }
+    .button.secondary {
+      background: rgba(7, 17, 31, 0.72);
+      color: var(--text);
+    }
 
-        .highlight-title {
-            color: #ff9100;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    main {
+      background: var(--bg);
+    }
 
-        details {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
+    section {
+      padding: 56px 0;
+      border-bottom: 1px solid rgba(38, 58, 86, 0.72);
+    }
 
-        summary:hover {
-            color: #00b0ff;
-        }
-    </style>
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-head p {
+      margin-bottom: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .two-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .item {
+      min-height: 176px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .item.accent {
+      border-color: rgba(208, 173, 75, 0.56);
+    }
+
+    .item p:last-child,
+    .notice p:last-child {
+      margin-bottom: 0;
+    }
+
+    .numbered {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .numbered li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 16px;
+      color: var(--muted);
+    }
+
+    .numbered li::before {
+      content: counter(step, decimal-leading-zero);
+      color: var(--gold-soft);
+      font-weight: 900;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .list li {
+      margin: 9px 0;
+    }
+
+    .screens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .screen {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .screen img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .screen span {
+      display: block;
+      min-height: 44px;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    code {
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 5px;
+      background: #050b15;
+      color: #d9ecff;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    .notice {
+      border: 1px solid rgba(208, 173, 75, 0.58);
+      border-radius: 8px;
+      background: #08111f;
+      padding: 20px;
+    }
+
+    .muted {
+      color: var(--quiet);
+    }
+
+    footer {
+      padding: 32px 0 42px;
+      background: #030712;
+      color: var(--muted);
+    }
+
+    footer p {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+        padding: 56px 0 48px;
+        background:
+          linear-gradient(180deg, rgba(5, 9, 20, 0.95), rgba(5, 9, 20, 0.84)),
+          url("./assets/screenshot_main.png") center / cover no-repeat;
+      }
+
+      .grid,
+      .two-grid,
+      .screens {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
-    <header>
-        <h1>LOL Tournament Code Creator</h1>
-        <p>리그 오브 레전드 토너먼트 코드 자동 생성 및 관리 도구</p>
-        <div>
-            <a href="https://github.com/ganada001/LOL_Tournament_Code_Creator/raw/main/dist/LOL_Tournament_Code_Creator.exe"
-                class="btn" style="background-color: #ff9100; color: #000;">🚀 EXE 직접 다운로드 (권장)</a>
-            <a href="https://github.com/ganada001/LOL_Tournament_Code_Creator/archive/refs/heads/main.zip" class="btn"
-                style="background-color: #333; color: #fff; margin-left: 10px;">ZIP 다운로드</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="feature-box">
-            <h3>📌 소개 (Introduction)</h3>
-            <p>본 도구는 <strong>Riot Games Tournament API (V5)</strong>를 활용하여 사설 대회의 토너먼트 코드를 쉽고 빠르게 생성해 주는 프로그램입니다.</p>
-            <p><strong>주요 특징:</strong></p>
-            <ul>
-                <li>🔒 <strong>보안 강화</strong>: 사용자의 API Key 입력 없이 안전하게 동작 (Google Apps Script 백엔드 사용)</li>
-                <li>⚡ <strong>자동화</strong>: 클릭 한 번으로 토너먼트 생성부터 코드 발급까지 완료</li>
-                <li>📢 <strong>디스코드 연동</strong>: 발급된 코드를 디스코드 채널로 자동 전송</li>
-            </ul>
-        </div>
-
-        <h2>📸 실행 화면 (Screenshots)</h2>
-        <div class="screenshot-grid">
-            <div class="screenshot-item">
-                <img src="./assets/screenshot_main.png" alt="메인 화면">
-                <div class="screenshot-caption">메인 GUI 화면</div>
-            </div>
-            <div class="screenshot-item">
-                <img src="./assets/screenshot_settings.png" alt="설정 화면">
-                <div class="screenshot-caption">일반 설정 및 Provider 관리</div>
-            </div>
-            <div class="screenshot-item">
-                <img src="./assets/screenshot_presets.png" alt="프리셋 관리">
-                <div class="screenshot-caption">대회 프리셋 및 웹훅 설정</div>
-            </div>
-            <div class="screenshot-item">
-                <img src="./assets/screenshot_manual.png" alt="수동 생성">
-                <div class="screenshot-caption">수동 토너먼트 생성</div>
-            </div>
-        </div>
-
-        <h2>🔍 화면별 상세 가이드 (Screen-by-Screen Guide)</h2>
-        <div class="feature-box">
-            <h3>메인 화면 (Main View)</h3>
-            <p>프로그램 실행 시 가장 먼저 만나는 화면입니다.</p>
-            <ul>
-                <li><strong>프리셋 버튼</strong>: 등록된 대회를 클릭하면 즉시 토너먼트 코드가 생성되고, 설정된 디스코드 웹훅으로 정보가 전송됩니다.</li>
-                <li><strong>상태 표시줄</strong>: 현재 백엔드(Stub/Production) 연결 상태를 실시간으로 보여줍니다.</li>
-            </ul>
-
-            <h3>일반 설정 (General Settings)</h3>
-            <p>프로그램의 핵심 작동 환경을 설정합니다.</p>
-            <ul>
-                <li><strong>Stub API 스위치</strong>: 실제 데이터 소모 없이 테스트할 수 있는 '연습 모드'입니다. 기능 테스트 시에는 이 모드로 확인하는 것을 권장합니다.
-                </li>
-                <li><strong>Provider 등록</strong>: Riot API와 통신하기 위한 고유 공급자 ID를 발급받고 관리합니다.</li>
-            </ul>
-
-            <h3>수동 생성 (Manual Generation)</h3>
-            <p>프리셋에 등록되지 않은 일회성 대회를 위한 기능입니다.</p>
-            <ul>
-                <li>대회 이름, 맵 형태(협곡/칼바람), 픽 방식 등을 직접 선택하여 즉석에서 코드를 생성할 수 있습니다.</li>
-            </ul>
-
-            <h3>프리셋 관리 (Preset Management)</h3>
-            <p>자주 진행하는 대회 형식을 미리 저장해두는 곳입니다.</p>
-            <ul>
-                <li><strong>디스코드 웹훅</strong>: 각 대회별로 결과를 전송할 디스코드 채널 주소를 다르게 설정할 수 있습니다.</li>
-                <li><strong>간편 추가/삭제</strong>: 여러 개의 대회 운영안을 생성하고 관리하기 편리합니다.</li>
-            </ul>
-        </div>
-
-        <h2>🚀 사용 방법 (How to Use)</h2>
-        <ol>
-            <li>GitHub 저장소 또는 위 다운로드 버튼을 통해 프로그램을 다운로드합니다.</li>
-            <li>필요한 라이브러리를 설치합니다: <code>pip install -r requirements.txt</code></li>
-            <li><code>gui_main.py</code>를 실행합니다.</li>
-            <li><strong>[설정]</strong> 탭에서 대회 프리셋(이름, 웹훅 URL 등)을 설정합니다.</li>
-            <li>메인 화면에서 대회 버튼을 누르면 코드가 생성되고 디스코드에 전송됩니다.</li>
-        </ol>
-
-        <h2>⚙️ 환경 및 공급자 설정 (Environment & Provider)</h2>
-        <div class="feature-box">
-            <h3>1. Stub API vs Production API</h3>
-            <p>프로그램 상단의 <strong>Stub API 사용</strong> 스위치를 통해 실행 환경을 변경할 수 있습니다.</p>
-            <ul>
-                <li><strong>Stub API (테스트용)</strong>: 실제 게임 데이터에 영향을 주지 않고 토너먼트 코드 생성 로직을 테스트할 수 있는 라이엇 제공 테스트 환경입니다. 승인
-                    전 개발 단계에서 권장됩니다.</li>
-                <li><strong>Production API (라이브 서버)</strong>: 실제 리그 오브 레전드 라이브 서버에서 작동하는 코드를 생성합니다. 라이엇으로부터 Production
-                    Key 승인을 받은 후 사용 가능합니다.</li>
-            </ul>
-
-            <h3>2. 공급자 및 토너먼트 (Provider & Tournament)</h3>
-            <p>토너먼트 코드를 생성하기 위해서는 먼저 <strong>Provider ID</strong>가 필요합니다.</p>
-            <ul>
-                <li><strong>Provider ID</strong>: 대회를 주최하는 주체를 식별하는 ID입니다. 설정 탭에서 'Provider 새로 생성' 버튼을 클릭하여 발급받을 수 있습니다.
-                </li>
-                <li><strong>데이터 유지</strong>: 한 번 발급받은 ID는 프로그램 내부에 안전하게 저장되어 재실행 시에도 유지됩니다.</li>
-                <li><strong>주의사항</strong>: Stub 모드에서 발급받은 ID는 라이브 모드에서 호환되지 않으므로, 모드 변경 시 ID를 새로 생성해야 합니다.</li>
-            </ul>
-        </div>
-
-        <h2>🚀 빠른 시작 가이드 (Quick Start Guide)</h2>
-        <div class="feature-box" style="border-left: 5px solid #ff9100;">
-            <p>프로그램의 핵심 기능을 빠르게 확인하시려면 다음 순서를 권장합니다.</p>
-            <ol>
-                <li>프로그램 실행 후 하단의 <strong>[설정]</strong> 버튼을 클릭합니다.</li>
-                <li><strong>Stub API 사용</strong>이 활성화되어 있는지 확인합니다 (기본값: On).</li>
-                <li><strong>Provider 새로 생성</strong> 버튼을 눌러 테스트용 ID를 발급받습니다.</li>
-                <li>메인 화면으로 돌아와 생성된 <strong>프리셋 버튼</strong>을 클릭하여 실제 토너먼트 코드가 생성되는지 확인합니다.</li>
-            </ol>
-            <p><small>* Stub 모드이므로 실제 게임 클라이언트에 입력 시 '유효하지 않은 코드'로 뜰 수 있으나, API 응답 자체는 표준 규격을 100% 준수합니다.</small></p>
-        </div>
-
-        <h2>🛡️ 보안 및 시스템 아키텍처 (Security & Architecture)</h2>
-        <div class="feature-box">
-            <p>본 프로그램은 라이엇 게임즈의 보안 가이드를 최우선으로 준수하도록 설계되었습니다.</p>
-            <ul>
-                <li><strong>API Key 미노출</strong>: 클라이언트 코드나 로컬 설정 파일에 Production API Key를 절대 저장하지 않습니다.</li>
-                <li><strong>중계 서버(Proxy) 방식</strong>: 모든 요청은 <code>Google Apps Script</code> 백엔드를 거쳐 전달되며, API Key는 서버측
-                    환경 변수에서만 관리됩니다.</li>
-                <li><strong>데이터 비저장</strong>: 서버는 요청을 전달(Forwarding)할 뿐, 어떠한 유저 데이터나 대회 정보도 DB에 기록하지 않습니다.</li>
-            </ul>
-        </div>
-
-        <h2>❓ 자주 묻는 질문 (FAQ)</h2>
-        <div class="feature-box">
-            <details>
-                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 왜 직접 API 키를 넣지 않나요?
-                </summary>
-                <p style="padding-left: 20px;">보안 때문입니다. 사용자 기기에 API 키가 남을 경우 유출 위험이 크기 때문에, 안전한 백엔드를 통해서만 통신하도록 제작했습니다.
-                </p>
-            </details>
-            <details>
-                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 생성된 코드가 디스코드에 오지 않아요.
-                </summary>
-                <p style="padding-left: 20px;">[설정 - 프리셋 관리] 탭에서 유효한 <strong>Discord Webhook URL</strong>이 입력되어 있는지 확인해
-                    주세요.</p>
-            </details>
-            <details>
-                <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Q. 공식 승인 전에는 어떻게 테스트하나요?
-                </summary>
-                <p style="padding-left: 20px;">프로그램에 내장된 'Stub API' 모드를 사용하면 승인된 키가 없어도 모든 기능을 미리 체험해 볼 수 있습니다.</p>
-            </details>
-        </div>
-
-        <h2>📄 법적 고지 및 보안</h2>
-        <p>본 프로젝트는 Riot Games의 보안 정책을 준수합니다. 사용자의 개인정보나 API Key를 수집하지 않습니다.</p>
+  <header class="hero">
+    <div class="wrap hero-content">
+      <p class="eyebrow">Riot Tournament API 운영 도구</p>
+      <h1>LOL Tournament Code Creator</h1>
+      <p class="lead">
+        리그 오브 레전드 커뮤니티 대회 운영자가 프리셋 또는 수동 입력으로 토너먼트 코드를 발급하고, 필요한 경우 Discord 웹훅으로 참가자에게 전달할 수 있는 데스크톱 운영 도구입니다. Riot API 키는 앱에 저장하지 않고 인증된 보안 백엔드에서만 사용합니다.
+      </p>
+      <div class="badge-row" aria-label="주요 구성">
+        <span class="badge">운영자 인증</span>
+        <span class="badge">보안 백엔드</span>
+        <span class="badge">Riot Tournament API</span>
+        <span class="badge">Discord Webhook</span>
+      </div>
+      <div class="actions">
+        <a class="button" href="https://github.com/ganada001/LOL_Tournament_Code_Creator">GitHub 저장소</a>
+        <a class="button secondary" href="./privacy.html">개인정보 처리방침</a>
+        <a class="button secondary" href="./tos.html">이용약관</a>
+      </div>
     </div>
+  </header>
 
-    <footer>
-        <div style="margin-bottom: 2rem;">
-            <strong style="margin-right: 20px;">문서 바로가기:</strong>
-            <a href="./tos.html">이용 약관 (Terms of Service)</a> |
-            <a href="./privacy.html">개인정보 처리방침 (Privacy Policy)</a> |
-            <a href="https://github.com/ganada001/LOL_Tournament_Code_Creator">Source Code</a>
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>현재 운영 구조</h2>
+          <p>프로그램은 기능을 과하게 늘리기보다 Riot Production 심사에서 문제가 될 수 있는 키 노출, 임의 API 호출, 잘못된 라우팅, 중복 요청 위험을 줄이는 방향으로 구성했습니다.</p>
         </div>
-        <div style="max-width: 800px; margin: 0 auto; line-height: 1.5; color: #666; font-size: 0.85rem;">
-            <p style="margin-bottom: 0.5rem;"><strong>Legal Disclaimer</strong></p>
-            <p>
-                LOL Tournament Code Creator isn't endorsed by Riot Games and doesn't reflect the views or opinions of
-                Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and
-                all associated properties are trademarks or registered trademarks of Riot Games, Inc.
-            </p>
+        <div class="grid">
+          <article class="item accent">
+            <h3>데스크톱 앱</h3>
+            <p>운영자는 프리셋 목록 또는 수동 생성 화면에서 대회 코드를 발급합니다. 앱 설정에는 Riot API 키와 콜백 URL 입력칸을 두지 않습니다.</p>
+          </article>
+          <article class="item accent">
+            <h3>보안 백엔드</h3>
+            <p>인증된 운영자 요청만 받아 Riot Tournament API에 전달합니다. 허용된 작업은 공급자 등록, 토너먼트 생성, 코드 발급으로 제한하고, 라이브 콜백 검증용 metadata를 서버에서 서명합니다.</p>
+          </article>
+          <article class="item accent">
+            <h3>외부 전송</h3>
+            <p>발급된 코드는 운영자가 등록한 Discord HTTPS 웹훅으로만 전송합니다. 웹훅 주소는 프리셋별로 관리하며 형식 검증을 거칩니다.</p>
+          </article>
         </div>
-    </footer>
+      </div>
+    </section>
 
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>화면 구성</h2>
+          <p>대회 운영 중 빠르게 확인해야 하는 정보가 먼저 보이도록 메인 화면, 설정, 수동 생성, 프리셋 관리를 분리했습니다.</p>
+        </div>
+        <div class="screens" aria-label="프로그램 화면 예시">
+          <figure class="screen">
+            <img src="./assets/screenshot_main.png" alt="메인 화면">
+            <span>메인 운영 화면</span>
+          </figure>
+          <figure class="screen">
+            <img src="./assets/screenshot_settings.png" alt="설정 화면">
+            <span>운영자 인증 및 공급자 관리</span>
+          </figure>
+          <figure class="screen">
+            <img src="./assets/screenshot_auth_required.png" alt="로그인 전 설정 화면">
+            <span>로그인 필요 상태</span>
+          </figure>
+          <figure class="screen">
+            <img src="./assets/screenshot_manual.png" alt="수동 생성 화면">
+            <span>일회성 코드 수동 생성</span>
+          </figure>
+          <figure class="screen">
+            <img src="./assets/screenshot_presets.png" alt="프리셋 관리 화면">
+            <span>대회 프리셋 관리</span>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap two-grid">
+        <div class="section-head">
+          <h2>운영 시작 순서</h2>
+          <p>일반 운영자는 서버 키를 다루지 않습니다. 배포된 앱을 실행한 뒤 운영자 계정으로 인증하고, 테스트 환경에서 공급자를 등록한 뒤 코드를 발급합니다.</p>
+        </div>
+        <ol class="numbered">
+          <li>프로그램을 실행하고 설정 창을 엽니다.</li>
+          <li>운영자 계정으로 로그인합니다.</li>
+          <li>승인 전에는 테스트 API 사용을 유지합니다.</li>
+          <li>라이엇 토너먼트 라우팅은 기본 검증값을 사용하고, Riot 안내가 있을 때만 변경합니다.</li>
+          <li>공급자 ID를 등록한 뒤 프리셋 또는 수동 생성으로 토너먼트 코드를 발급합니다.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Riot 심사 대응 포인트</h2>
+          <p>Riot 공식 문서의 Security, Tournament API Best Practices, Routing Values 기준을 운영 리스크 관점에서 반영했습니다.</p>
+        </div>
+        <div class="grid">
+          <article class="item">
+            <h3>Security</h3>
+            <p>Riot API 키는 데스크톱 코드, 로컬 설정, 배포 바이너리에 포함하지 않습니다. HTTPS 기반 백엔드 secret으로만 보관하고, 운영자 인증 후 제한된 작업만 실행합니다.</p>
+          </article>
+          <article class="item">
+            <h3>Tournament API</h3>
+            <p>공급자 등록, 토너먼트 생성, 코드 발급 순서를 유지합니다. Stub API를 기본 테스트 환경으로 두고, live API에서는 서명된 metadata로 callback을 검증합니다. 429 또는 재시도성 오류가 발생하면 반복 발급을 중단합니다.</p>
+          </article>
+          <article class="item">
+            <h3>Routing Values</h3>
+            <p>토너먼트 API 라우팅은 Riot 지역 라우팅 값인 <code>americas</code>, <code>asia</code>, <code>europe</code>, <code>sea</code>만 허용합니다. 공급자 지역 <code>KR</code>과 API 호스트 라우팅은 별도로 관리합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap two-grid">
+        <div class="notice">
+          <h2>백엔드 설정 기준</h2>
+          <p>서버 운영자는 아래 값을 보안 백엔드 secret으로 관리합니다. 일반 운영자 화면에는 이 값들을 직접 입력하는 칸을 노출하지 않습니다.</p>
+        </div>
+        <ul class="list">
+          <li><code>RIOT_API_KEY</code>: 승인 전 Development key, 승인 후 Production key로 교체합니다.</li>
+          <li><code>RIOT_CALLBACK_URL</code>: 공급자 등록 시 Riot에 전달할 서버 콜백 URL입니다.</li>
+          <li><code>RIOT_CALLBACK_SECRET</code>: 토너먼트 코드 metadata 서명과 Riot callback 검증에 사용하는 서버 secret입니다.</li>
+          <li><code>ALLOWED_OPERATOR_EMAILS</code>: 앱 사용을 허용할 운영자 이메일 목록입니다.</li>
+          <li>데스크톱 앱에는 public client 설정과 운영자 세션만 사용하며, service-role key는 포함하지 않습니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>자주 묻는 질문</h2>
+        </div>
+        <div class="grid">
+          <article class="item">
+            <h3>왜 공급자를 등록하나요?</h3>
+            <p>Riot Tournament API에서 공급자는 대회를 주최하는 주체를 식별하는 값입니다. 토너먼트와 코드는 이 공급자 ID를 기준으로 발급됩니다.</p>
+          </article>
+          <article class="item">
+            <h3>승인 전에도 테스트할 수 있나요?</h3>
+            <p>네. Stub API를 사용하면 실제 라이브 서버용 코드가 아니라 테스트용 응답으로 발급 흐름을 검증할 수 있습니다.</p>
+          </article>
+          <article class="item">
+            <h3>Production 승인 후 무엇이 바뀌나요?</h3>
+            <p>앱을 다시 설계하지 않고 서버 secret의 Riot 키를 Production key로 교체합니다. Riot 안내에 따라 라우팅 값도 설정 화면에서 변경할 수 있습니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Riot Legal Notice</strong></p>
+      <p>
+        LOL Tournament Code Creator is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+      </p>
+      <p class="muted">© 2026 LOL Tournament Code Creator</p>
+    </div>
+  </footer>
 </body>
-
 </html>

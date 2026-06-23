@@ -1,0 +1,35 @@
+{
+  "name": "lol-tournament-code-creator-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local Deno and Supabase CLI tooling for Supabase Edge Function validation.",
+  "scripts": {
+    "check": "node tools/predeploy-check.mjs",
+    "deno": "deno",
+    "functions:deploy": "node tools/deploy-supabase-functions.mjs",
+    "functions:list": "node tools/run-supabase-cli.mjs functions list",
+    "postdeploy": "node tools/postdeploy-check.mjs",
+    "predeploy": "node tools/predeploy-check.mjs",
+    "readiness": "node tools/readiness-report.mjs",
+    "release:guard": "node tools/release-guard.mjs",
+    "supabase": "node tools/run-supabase-cli.mjs",
+    "functions:check": "deno check supabase/functions/riot-tournament/index.ts supabase/functions/riot-callback/index.ts",
+    "functions:fmt:check": "deno fmt --check supabase/functions",
+    "functions:deploy:riot-tournament": "node tools/deploy-supabase-function.mjs riot-tournament",
+    "functions:deploy:riot-callback": "node tools/deploy-supabase-function.mjs riot-callback",
+    "secrets:check": "node tools/check-supabase-secrets.mjs",
+    "secrets:list": "node tools/run-supabase-cli.mjs secrets list",
+    "secrets:set": "node tools/set-supabase-secrets.mjs",
+    "supabase:login": "node tools/run-supabase-cli.mjs login",
+    "supabase:link": "node tools/run-supabase-cli.mjs link",
+    "supabase:projects": "node tools/run-supabase-cli.mjs projects list",
+    "supabase:version": "node tools/run-supabase-cli.mjs --version",
+    "supabase:deploy:approval": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/deploy-supabase-production.ps1",
+    "supabase:deploy:production": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/deploy-supabase-production.ps1",
+    "riot-key:update": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/update-riot-api-key.ps1"
+  },
+  "devDependencies": {
+    "deno": "2.8.3",
+    "supabase": "2.107.0"
+  }
+}

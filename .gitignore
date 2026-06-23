@@ -9,6 +9,31 @@ __pycache__/
 # Config
 presets.json
 config.json
+config/supabase-deployment.json
+config/supabase-deploy-last.log
 
-# Debug
-debug_stub.py
+# Local secrets and generated artifacts
+node_modules/
+.supabase-cli-home/
+*.env
+*.log
+build/
+dist/
+*.spec
+*.zip
+supabase/.env
+supabase/.env.*
+!supabase/.env.example
+!supabase/.env.production.example
+supabase/.temp/
+.supabase/
+
+# Nested project local/runtime outputs
+LOL_Tournament_Code_Creator-main/build/
+LOL_Tournament_Code_Creator-main/dist/
+LOL_Tournament_Code_Creator-main/__pycache__/
+LOL_Tournament_Code_Creator-main/config.json
+LOL_Tournament_Code_Creator-main/presets.json
+LOL_Tournament_Code_Creator-main/*.spec
+LOL_Tournament_Code_Creator-main/*.zip
+LOL_Tournament_Code_Creator/

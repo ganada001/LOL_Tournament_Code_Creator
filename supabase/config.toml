@@ -1,0 +1,5 @@
+[functions.riot-tournament]
+verify_jwt = true
+
+[functions.riot-callback]
+verify_jwt = false

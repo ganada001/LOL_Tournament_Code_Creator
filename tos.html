@@ -1,149 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이용약관 - LOL Tournament Code Creator</title>
-    <style>
-        :root {
-            --primary-color: #00b0ff;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --muted-text: #888;
-            --border-color: #333;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이용약관 - LOL Tournament Code Creator</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050914;
+      --panel: #0a1424;
+      --line: #263a56;
+      --gold-soft: #f0d27a;
+      --text: #f4f7fb;
+      --muted: #a7b6ca;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        header {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
-        }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.7;
+    }
 
-        header h1 {
-            margin: 0;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
+    header {
+      border-bottom: 1px solid rgba(208, 173, 75, 0.42);
+      background: #07111f;
+      padding: 30px 0;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    main,
+    .wrap {
+      width: min(900px, calc(100% - 36px));
+      margin: 0 auto;
+    }
 
-        section {
-            margin-bottom: 2rem;
-        }
+    main {
+      padding: 52px 0 68px;
+    }
 
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
 
-        p,
-        li {
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-        }
+    h1 {
+      margin-bottom: 8px;
+      color: var(--gold-soft);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
 
-        ul {
-            padding-left: 1.2rem;
-        }
+    h2 {
+      margin-bottom: 12px;
+      color: var(--gold-soft);
+      font-size: 1.22rem;
+      letter-spacing: 0;
+    }
 
-        .btn-back {
-            display: inline-block;
-            margin-top: 2rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+    p,
+    li {
+      color: var(--muted);
+    }
 
-        .btn-back:hover {
-            color: #fff;
-        }
+    section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 22px;
+      margin-bottom: 16px;
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--muted-text);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
-        }
-    </style>
+    ul {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back {
+      display: inline-flex;
+      margin-top: 14px;
+      font-weight: 800;
+    }
+  </style>
 </head>
-
 <body>
-
-    <header>
-        <h1>이용약관 (Terms of Service)</h1>
-    </header>
-
-    <div class="container">
-        <section>
-            <p><strong>LOL Tournament Code Creator</strong>("본 도구")를 이용해 주셔서 감사합니다. 본 약관은 본 도구의 이용 조건 및 절차를 규정합니다.</p>
-        </section>
-
-        <section>
-            <h2>1. 서비스의 목적</h2>
-            <p>본 도구는 League of Legends 커뮤니티 토너먼트 운영을 돕기 위해 Riot Games API를 활용하여 토너먼트 코드를 생성하고 관리하는 기능을 제공합니다.</p>
-        </section>
-
-        <section>
-            <h2>2. 사용자의 의무</h2>
-            <ul>
-                <li>사용자는 <strong>Riot Games 개발자 정책(Riot Games Developer Policy)</strong>을 준수해야 합니다.</li>
-                <li>본 도구를 불법적인 목적이나 타인의 게임 이용을 방해하는 용도로 사용해서는 안 됩니다.</li>
-                <li>본 도구는 사용자에게 API Key를 요구하지 않으며, 모든 API 통신은 보안 백엔드를 통해 처리됩니다.</li>
-                <li>본 도구는 비영리 커뮤니티 대회를 지원하기 위한 것이며 영리적 목적으로는 사용할 수 없습니다.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. 라이선스 및 저작권</h2>
-            <p>본 도구는 오픈 소스 라이선스하에 제공됩니다. 사용자는 라이선스 범위 내에서 자유롭게 코드를 수정하고 배포할 수 있습니다.</p>
-        </section>
-
-        <section>
-            <h2>4. 책임의 한계</h2>
-            <ul>
-                <li>본 도구는 "있는 그대로(As Is)" 제공되며, 도구 사용으로 인해 발생하는 결과(API 제한, 계정 제재 등)에 대해 개발자는 책임을 지지 않습니다.</li>
-                <li>Riot API의 변경이나 서비스 중단으로 인해 도구의 기능이 제한될 수 있습니다.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>5. 약관의 변경</h2>
-            <p>본 약관은 필요한 경우 사전 고지 없이 변경될 수 있으며, GitHub 저장소를 통해 최신 버전을 확인할 수 있습니다.</p>
-        </section>
-
-        <a href="./index.html" class="btn-back">← 메인 페이지로 돌아가기</a>
+  <header>
+    <div class="wrap">
+      <h1>이용약관</h1>
+      <p>최종 수정일: 2026년 6월 23일</p>
     </div>
+  </header>
 
-    <footer>
-        <p>최종 수정일: 2026년 2월 11일</p>
-        <p>© 2026 LOL Tournament Code Creator. All rights reserved.</p>
-    </footer>
+  <main>
+    <section>
+      <h2>1. 서비스 목적</h2>
+      <p>LOL Tournament Code Creator는 League of Legends 커뮤니티 대회 운영을 돕기 위해 Riot Tournament API 기반 토너먼트 코드 발급 흐름을 제공하는 운영 도구입니다.</p>
+    </section>
 
+    <section>
+      <h2>2. 사용자의 의무</h2>
+      <ul>
+        <li>사용자는 Riot Games 개발자 정책과 관련 대회 운영 정책을 준수해야 합니다.</li>
+        <li>본 도구를 불법적인 목적, 타인의 게임 이용 방해, 도박 또는 부정행위 목적으로 사용해서는 안 됩니다.</li>
+        <li>운영자는 본인이 관리 권한을 가진 Discord 웹훅과 대회 설정만 등록해야 합니다.</li>
+        <li>본 도구는 사용자에게 Riot API 키를 요구하지 않으며, 모든 Riot API 호출은 인증된 보안 백엔드를 통해 처리됩니다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. 비영리 커뮤니티 운영</h2>
+      <p>본 도구는 커뮤니티 대회 운영 편의를 목적으로 합니다. 상금, 참가비, 후원 등 금전 요소가 있는 대회를 운영하는 경우 Riot의 토너먼트 및 수익화 정책을 별도로 확인해야 합니다.</p>
+    </section>
+
+    <section>
+      <h2>4. 책임의 한계</h2>
+      <ul>
+        <li>본 도구는 있는 그대로 제공되며, Riot API 정책 변경, 서비스 장애, API 제한으로 인해 기능이 제한될 수 있습니다.</li>
+        <li>운영자의 잘못된 대회 설정, 웹훅 관리, 정책 위반으로 발생하는 문제는 운영자에게 책임이 있습니다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. 약관 변경</h2>
+      <p>본 약관은 필요한 경우 변경될 수 있으며, 최신 내용은 GitHub 저장소와 공개 페이지를 통해 확인할 수 있습니다.</p>
+    </section>
+
+    <a class="back" href="./index.html">메인 페이지로 돌아가기</a>
+  </main>
 </body>
-
 </html>

@@ -1,160 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보 처리방침 - LOL Tournament Code Creator</title>
-    <style>
-        :root {
-            --primary-color: #00b0ff;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --muted-text: #888;
-            --border-color: #333;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>개인정보 처리방침 - LOL Tournament Code Creator</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050914;
+      --panel: #0a1424;
+      --line: #263a56;
+      --gold: #d0ad4b;
+      --gold-soft: #f0d27a;
+      --text: #f4f7fb;
+      --muted: #a7b6ca;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        header {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
-        }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.7;
+    }
 
-        header h1 {
-            margin: 0;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
+    main {
+      width: min(900px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 52px 0 68px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    header {
+      border-bottom: 1px solid rgba(208, 173, 75, 0.42);
+      background: #07111f;
+      padding: 30px 0;
+    }
 
-        section {
-            margin-bottom: 2rem;
-        }
+    .wrap {
+      width: min(900px, calc(100% - 36px));
+      margin: 0 auto;
+    }
 
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
 
-        p,
-        li {
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-        }
+    h1 {
+      margin-bottom: 8px;
+      color: var(--gold-soft);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
 
-        ul {
-            padding-left: 1.2rem;
-        }
+    h2 {
+      margin-bottom: 12px;
+      color: var(--gold-soft);
+      font-size: 1.22rem;
+      letter-spacing: 0;
+    }
 
-        .btn-back {
-            display: inline-block;
-            margin-top: 2rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+    p,
+    li {
+      color: var(--muted);
+    }
 
-        .btn-back:hover {
-            color: #fff;
-        }
+    section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 22px;
+      margin-bottom: 16px;
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--muted-text);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
-        }
+    ul {
+      margin: 0;
+      padding-left: 19px;
+    }
 
-        .highlight-box {
-            background: rgba(0, 176, 255, 0.1);
-            border-left: 4px solid var(--primary-color);
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-    </style>
+    li {
+      margin: 8px 0;
+    }
+
+    code {
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 5px;
+      background: #050b15;
+      color: #d9ecff;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back {
+      display: inline-flex;
+      margin-top: 14px;
+      font-weight: 800;
+    }
+  </style>
 </head>
-
 <body>
-
-    <header>
-        <h1>개인정보 처리방침 (Privacy Policy)</h1>
-    </header>
-
-    <div class="container">
-        <section>
-            <p><strong>LOL Tournament Code Creator</strong>("본 도구")는 사용자의 개인정보 및 Riot Games의 보안 정책을 최우선으로 생각합니다.</p>
-        </section>
-
-        <section>
-            <h2>1. 수집하는 개인정보 항목</h2>
-            <p>본 도구는 사용자의 API Key를 포함한 어떠한 개인 데이터도 수집, 요구 또는 로컬에 저장하지 않습니다.</p>
-            <div class="highlight-box">
-                <p><strong>보안 아키텍처</strong>: 모든 Riot API 요청은 개발자의 보안 백엔드(Google Apps Script)를 통해 처리되며, 사용자에게 API 키를 묻지
-                    않습니다. 사용자의 데이터는 서버측에 일절 보관되지 않으며 실시간 요청 처리 후 즉시 소멸됩니다.</p>
-            </div>
-            <ul>
-                <li><strong>Discord Webhook URL</strong>: 사용자가 설정한 디스코드 웹훅 주소는 로컬에 저장되며, 알림 전송 목적으로만 사용됩니다.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>2. 개인정보의 이용 목적</h2>
-            <p>수집된 정보는 오직 다음의 목적으로만 사용됩니다.</p>
-            <ul>
-                <li>보안 백엔드를 통한 Riot API 토너먼트 코드 생성</li>
-                <li>디스코드 채널로의 경기 정보 알림 전송</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. 데이터 보안</h2>
-            <p>본 도구는 오픈 소스 소프트웨어이며, 모든 데이터 처리는 사용자의 로컬 컴퓨터에서 이루어집니다. API 키는 서버 측에서만 관리되며, 사용자에게 노출되지 않습니다.</p>
-        </section>
-
-        <section>
-            <h2>4. 제3자 제공</h2>
-            <p>본 도구는 수집된 정보를 제3자에게 판매하거나 공유하지 않습니다. Riot Games API 호출 시 Riot Games의 정책에 따라 데이터가 처리될 수 있습니다.</p>
-        </section>
-
-        <section>
-            <h2>5. 문의처</h2>
-            <p>본 정책에 대한 문의사항은 본 GitHub 저장소의 Issue를 통해 남겨주시기 바랍니다.</p>
-        </section>
-
-        <a href="./index.html" class="btn-back">← 메인 페이지로 돌아가기</a>
+  <header>
+    <div class="wrap">
+      <h1>개인정보 처리방침</h1>
+      <p>최종 수정일: 2026년 6월 23일</p>
     </div>
+  </header>
 
-    <footer>
-        <p>최종 수정일: 2026년 2월 11일</p>
-        <p>© 2026 LOL Tournament Code Creator. All rights reserved.</p>
-    </footer>
+  <main>
+    <section>
+      <h2>수집하거나 사용하는 정보</h2>
+      <ul>
+        <li>운영자 로그인을 위한 이메일과 인증 세션 정보</li>
+        <li>운영자가 직접 등록한 Discord 웹훅 URL</li>
+        <li>로컬에 저장되는 대회 프리셋 이름, 경기 설정, 전송 대상 정보</li>
+      </ul>
+      <p>본 도구는 Riot 계정 정보, Riot 비밀번호, 플레이어 개인정보, Riot API 키를 사용자에게 요구하지 않습니다.</p>
+    </section>
 
+    <section>
+      <h2>Riot API 키 처리</h2>
+      <p>Riot API 키는 데스크톱 앱에 저장하지 않습니다. 승인 전 Development API key와 승인 후 Production API key는 보안 백엔드 secret으로만 관리하며, 앱은 인증된 작업 요청만 백엔드로 보냅니다.</p>
+    </section>
+
+    <section>
+      <h2>콜백 URL 처리</h2>
+      <p>Riot 콜백 URL은 서버 secret인 <code>RIOT_CALLBACK_URL</code>로 관리합니다. 데스크톱 앱 설정 화면에서 사용자가 직접 입력하는 값이 아닙니다. live Tournament API 코드 발급 시에는 서버가 metadata를 서명하고, public callback endpoint는 <code>RIOT_CALLBACK_SECRET</code>으로 서명을 검증합니다.</p>
+    </section>
+
+    <section>
+      <h2>로컬 저장</h2>
+      <p>운영자 세션과 프리셋은 운영자 기기의 로컬 앱 데이터 폴더에 저장됩니다. 로컬 설정, 환경 파일, 캐시, 빌드 산출물은 공개 배포물에 포함하지 않습니다.</p>
+    </section>
+
+    <section>
+      <h2>외부 서비스</h2>
+      <ul>
+        <li>Supabase: 운영자 인증과 서버 측 Edge Function 실행에 사용합니다.</li>
+        <li>Riot Games API: Tournament API 작업에 사용합니다.</li>
+        <li>Discord Webhook: 운영자가 설정한 경우에만 코드 전달에 사용합니다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>문의</h2>
+      <p>보안 또는 개인정보 관련 문의는 GitHub 저장소의 이슈를 통해 남길 수 있습니다.</p>
+    </section>
+
+    <a class="back" href="./index.html">메인 페이지로 돌아가기</a>
+  </main>
 </body>
-
 </html>

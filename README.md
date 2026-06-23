@@ -1,62 +1,114 @@
 # LOL Tournament Code Creator
 
-League of Legends Tournament Code Generator & Manager.  
-리그 오브 레전드 사설 대회(커뮤니티 토너먼트) 운영을 위한 **토너먼트 코드 자동 생성 및 관리 도구**입니다.
+League of Legends community tournament operators can use this desktop app to
+create Riot Tournament API providers, tournaments, and tournament codes, then
+send generated codes to configured Discord webhooks.
 
----
+## Security Model
 
-## 📄 Documentation (법적 고지 및 보안)
-본 프로젝트는 Riot Games의 보안 정책(Security Policy)을 준수합니다. 사용자의 API Key를 절대 요구하지 않으며, 모든 통신은 보안 백엔드를 통해 안전하게 보호됩니다.
-*   [Privacy Policy (개인정보 처리방침)](./privacy.md)
-*   [Terms of Service (이용약관)](./tos.md)
+- The desktop app does not store or send a Riot API key.
+- Riot API calls are made only by Supabase Edge Functions.
+- `RIOT_API_KEY`, `RIOT_CALLBACK_URL`, `RIOT_CALLBACK_SECRET`, and allowed
+  operator emails are stored as Supabase function secrets.
+- Supabase project URL and anon/public key are public build settings in
+  `client_settings.py`, not operator-editable desktop settings.
+- The desktop app stores the operator's Supabase Auth session under
+  `%APPDATA%/LOL_Tournament_Code_Creator/`.
+- Discord preset data is also stored under `%APPDATA%/LOL_Tournament_Code_Creator/`;
+  `config/presets.json.example` is only a safe template.
+- Expired Supabase access tokens are refreshed with the stored Supabase refresh
+  token; the operator password is not stored.
+- Callback URL is not editable in the desktop app. Provider creation always uses
+  the server-side `RIOT_CALLBACK_URL` secret.
+- Live Tournament API code creation requires `RIOT_CALLBACK_SECRET`. The backend
+  signs Tournament Code metadata, and the callback endpoint verifies that
+  signature before accepting callback events.
+- The Supabase backend exposes app-level actions only:
+  `create_provider`, `create_tournament`, and `create_codes`.
 
----
+## Use Flow
 
-## 📌 Features (주요 기능)
+1. Deploy the Supabase Edge Functions in `supabase/functions/`.
+2. Configure Supabase secrets:
+   `RIOT_API_KEY`, `RIOT_CALLBACK_URL`, `RIOT_CALLBACK_SECRET`, and
+   `ALLOWED_OPERATOR_EMAILS`.
+3. Set the public Supabase client values in `client_settings.py` before building.
+4. Create an operator user in Supabase Auth.
+5. In the desktop app settings, complete operator authentication with email and
+   password.
+6. Generate a Provider ID, then create tournament codes manually or through
+   presets.
 
-*   **Secure API Architecture**: 사용자의 API 키 입력 없이, 보안 백엔드를 통해 안전하게 토너먼트 코드를 생성합니다.
-*   **Automated Code Generation**: Riot API (Tournament V5)를 이용하여 대회 코드를 쉽고 빠르게 생성합니다.
-*   **Preset Management**: 자주 사용하는 대회 설정(팀 크기, 맵, 밴픽 방식 등)을 프리셋으로 저장하여 원클릭으로 코드를 발급받으세요.
-*   **Discord Integration**: 생성된 코드를 Discord Webhook을 통해 운영진 및 참가자 채널로 즉시 전송합니다.
-*   **GUI & CLI Support**: 직관적인 GUI(CustomTkinter)와 가벼운 CLI 모드를 모두 지원합니다.
+## Supabase Files
 
-## 📸 Screenshots (실행 화면)
+- `supabase/functions/riot-tournament/index.ts` - authenticated backend action
+  endpoint for Riot Tournament API calls.
+- `supabase/functions/riot-callback/index.ts` - Riot tournament callback
+  endpoint.
+- `supabase/config.toml` - Edge Function JWT verification settings.
+- `supabase/.env.example` - safe secret-name template.
 
-| 메인 화면 (Main GUI) | 일반 설정 (General Settings) |
-|:---:|:---:|
-| <img src="./screenshot_main.png" width="400"> | <img src="./screenshot_settings.png" width="400"> |
-| **토너먼트 생성 및 코드 발급** | **환경 설정 및 Provider 관리** |
+## Local CLI Tooling
 
-| 프리셋 관리 (Preset Manager) | 수동 설정 (Manual Config) |
-|:---:|:---:|
-| <img src="./screenshot_presets.png" width="400"> | <img src="./screenshot_manual.png" width="400"> |
-| **대회 프리셋 및 웹훅 설정** | **개별 토너먼트 수동 생성** |
+Install the local tooling with `npm install`.
 
-## 🛠 Tech Stack
+- `npm run deno -- --version` - verify the local Deno runtime.
+- `npm run supabase:version` - verify the local Supabase CLI.
+- `npm run functions:check` - type-check the Supabase Edge Functions.
+- `npm run functions:fmt:check` - verify Deno formatting for Edge Functions.
+- `npm run predeploy` - run Edge Function checks, Python regression tests,
+  Supabase config guard, and blocked secret/legacy string scan.
+- `npm run secrets:check` - validate the ignored Supabase secret file before
+  upload.
+- `npm run secrets:set` - upload Supabase secrets from ignored
+  `supabase/.env.production.local`.
+- `npm run riot-key:update` - replace only the Supabase `RIOT_API_KEY` secret
+  when the Riot Development key rotates or when a Production key is approved.
+- `npm run supabase:deploy:approval` - interactive approval-ready Supabase
+  project, secret, and Edge Function deployment helper.
+- `npm run functions:deploy` - run predeploy checks and deploy both Edge
+  Functions with Supabase API bundling.
+- `npm run postdeploy` - verify deployed Edge Functions and required Supabase
+  secret names.
+- `npm run release:guard` - fail if local-only files or generated artifacts are
+  present before building a release bundle.
+- `npm run readiness` - print a local readiness summary without exposing secret
+  values.
 
-*   **Language**: Python 3.11+
-*   **GUI Framework**: CustomTkinter
-*   **API**: Riot Games Tournament API (via Secure Backend)
+The Supabase CLI is wrapped by `tools/run-supabase-cli.mjs` so it stores local
+CLI state under `.supabase-cli-home/` instead of the Windows user profile.
 
-## 🚀 How to Use (사용 방법)
+## Riot Production Readiness
 
-### 1. 프로그램 다운로드 (가장 권장)
-심사관 및 일반 사용자는 빌드된 실행 파일을 다운로드하여 별도의 설치 없이 바로 사용할 수 있습니다.
-*   **[최신 EXE 다운로드 (Direct)](https://github.com/ganada001/LOL_Tournament_Code_Creator/raw/main/dist/LOL_Tournament_Code_Creator.exe)**
-*   다운로드 후 `LOL_Tournament_Code_Creator.exe`를 실행하세요.
+- Stub API remains the default mode for safer testing.
+- Production mode requires build-time Supabase client settings and operator
+  authentication before the Riot client initializes.
+- Routing values are restricted to Riot regional routing clusters:
+  `americas`, `asia`, `europe`, and `sea`.
+- Tournament code options are validated before network calls.
+- Retryable Riot failures and rate limits stop batch generation to avoid
+  repeated load.
+- Discord webhook URLs are validated as Discord HTTPS webhook URLs.
+- Local `.env`, `config.json`, `presets.json`, build outputs, and caches are
+  ignored and must not be packaged as release defaults.
 
-### 2. 소스 코드에서 실행 (개발자용)
-1.  **Clone**: `git clone https://github.com/ganada001/LOL_Tournament_Code_Creator.git`
-2.  **Dependencies**: `pip install -r requirements.txt`
-3.  **Run**: `python gui_main.py`
+See `RIOT_PRODUCTION_READINESS.md`, `RIOT_APPROVAL_SUBMISSION.md`, and
+`PRODUCTION_BACKEND_ARCHITECTURE.md` for the review checklist, Riot submission
+notes, and operational notes. See `SUPABASE_DEPLOYMENT.md` for the deploy
+runbook and `SUPABASE_OPERATOR_AUTH.md` for the remaining operator account
+setup.
 
-## ⚠️ Requirements
+## Requirements
 
-*   Python 3.11+
-*   Discord Webhook URL (Optional)
+- Python 3.11+
+- `customtkinter`, `requests`, `pyperclip`
+- Supabase project with Auth and Edge Functions enabled
+- Riot Development API key for private prototype validation before approval;
+  replace it with a Riot Production API key after Riot approval
 
----
----
-> [!NOTE]
-> **Legal Disclaimer**  
-> `LOL Tournament Code Creator` isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+## Riot Notice
+
+LOL Tournament Code Creator is not endorsed by Riot Games and does not reflect
+the views or opinions of Riot Games or anyone officially involved in producing
+or managing Riot Games properties. Riot Games and all associated properties are
+trademarks or registered trademarks of Riot Games, Inc.

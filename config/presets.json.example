@@ -1,23 +1,11 @@
 [
   {
-    "label": "Example: 10-Player Custom",
+    "label": "Example preset",
     "actions": [
       {
-        "name": "10-Player Custom Game",
-        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK_HERE"
-      }
-    ]
-  },
-  {
-    "label": "Example: Group A & B",
-    "actions": [
-      {
-        "name": "Group A Match",
-        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK_HERE"
-      },
-      {
-        "name": "Group B Match",
-        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK_HERE"
+        "name": "Example match",
+        "api_name": "Example_Match",
+        "url": ""
       }
     ]
   }
